@@ -20,3 +20,5 @@
 > 💡 **Tips:**  
 > OCRを利用する場合は、`tesseract` と `poppler` のインストールが必要です。  
 > （例：macOS → `brew install tesseract poppler`）
+
+*name changed.
