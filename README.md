@@ -22,3 +22,4 @@
 > （例：macOS → `brew install tesseract poppler`）
 
 *name changed.
+*brach update.
