@@ -3,8 +3,8 @@ from fastapi.responses import JSONResponse
 import io
 from src.pdf_loader import extract_texts_from_pdfs
 
-text = extract_texts_from_pdfs(["tests/assets/n1310000.pdf"])
-print(text[:50])
+# text = extract_texts_from_pdfs(["tests/assets/n1310000.pdf"])
+# print(text[:50])
 
 app = FastAPI(
     title="PDF2Sentence API",
