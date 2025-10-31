@@ -30,7 +30,7 @@ jobs:
   docker:
     needs: build-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: always()
 
     steps:
       - name: Checkout repository
