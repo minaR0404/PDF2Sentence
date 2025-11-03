@@ -24,212 +24,59 @@
 *name changed.  
 *brach update.
 
-\documentclass[a4paper,12pt]{article}
-\usepackage{hyperref}
-\usepackage{geometry}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{titlesec}
-\usepackage{enumitem}
-\geometry{margin=25mm}
+# 📘 PDF2Sentence
 
-\lstset{
-  basicstyle=\ttfamily\footnotesize,
-  backgroundcolor=\color{gray!5},
-  frame=single,
-  breaklines=true,
-  columns=fullflexible
-}
+PDF2Sentenceは、PDFファイルからテキストを抽出し、REST APIとして提供する軽量な **FastAPIアプリケーション** です。  
+Docker Composeを利用して簡単に起動できます。
 
-\title{\Huge \textbf{PDF2Sentence ユーザーガイド}}
-\author{Your Name}
-\date{2025年}
+---
 
-\begin{document}
+## 🚀 機能概要
 
-\maketitle
-\tableofcontents
-\newpage
+- 🧩 **PDFテキスト抽出**（単一・複数ファイル対応）  
+- ⚡ **FastAPIベースのREST APIサーバ**  
+- 🐳 **Docker Compose対応**  
+- 🧪 **pytestでの自動テスト**  
+- 🔧 **拡張可能なモジュール構成**
 
-\section{概要}
+---
 
-\textbf{PDF2Sentence} は、PDFファイルからテキストを抽出し、API経由で利用できる軽量な \textbf{FastAPI} アプリケーションです。  
-PyPDF をベースに、OCRや図表対応などの拡張も可能な設計になっています。
+## 🧱 技術スタック
 
-\subsection*{主な機能}
-\begin{itemize}
-  \item PDFからのテキスト抽出（単一・複数対応）
-  \item FastAPIベースのREST API
-  \item Docker Composeによる簡単な実行
-  \item pytest対応のテスト構成
-\end{itemize}
+| 分類 | 使用技術 |
+|------|-----------|
+| 言語 | Python 3.11 |
+| フレームワーク | FastAPI |
+| PDF処理 | PyPDF |
+| インフラ | Docker / Docker Compose |
+| テスト | pytest |
+| CI/CD | GitHub Actions（任意） |
 
-\section{技術スタック}
+---
 
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-分類 & 使用技術 \\
-\hline
-言語 & Python 3.11 \\
-フレームワーク & FastAPI \\
-PDF処理 & PyPDF \\
-インフラ & Docker / Docker Compose \\
-テスト & pytest \\
-CI/CD & GitHub Actions \\
-\hline
-\end{tabular}
-\end{center}
+## ⚙️ セットアップ手順
 
-\section{セットアップ手順}
+### 1️⃣ リポジトリのクローン
 
-\subsection{1. リポジトリのクローン}
-
-\begin{lstlisting}[language=bash]
+```bash
 git clone https://github.com/<YOUR_USERNAME>/pdf2sentence.git
 cd pdf2sentence
-\end{lstlisting}
+```
 
-\subsection{2. ローカル開発（任意）}
-
-\begin{lstlisting}[language=bash]
+### 2️⃣ 依存パッケージのインストール（ローカル開発用）
+```bash
 pip install -r requirements.txt
-\end{lstlisting}
+```
 
-\subsection{3. Dockerイメージのビルド}
-
-\begin{lstlisting}[language=bash]
+### 3️⃣ Dockerイメージのビルド
+```bash
 docker compose build
-\end{lstlisting}
+```
 
-\subsection{4. コンテナの起動}
-
-\begin{lstlisting}[language=bash]
+### 4️⃣ コンテナの起動
+```bash
 docker compose up
-\end{lstlisting}
+```
 
-\noindent 成功すると、以下のようなメッセージが表示されます：
-\begin{lstlisting}
+実行後、以下のようなメッセージが出れば成功です：
 Uvicorn running on http://0.0.0.0:8000
-\end{lstlisting}
-
-\subsection{5. APIへのアクセス}
-
-\textbf{Swagger UI（自動ドキュメント）:}  
-\url{http://localhost:8000/docs}
-
-\noindent \textbf{cURL例:}
-\begin{lstlisting}[language=bash]
-curl -X POST "http://localhost:8000/upload-pdf/" \
-  -F "file=@sample.pdf"
-\end{lstlisting}
-
-\noindent \textbf{レスポンス例:}
-\begin{lstlisting}[language=json]
-{
-  "filename": "sample.pdf",
-  "text": "ここにPDFの抽出テキストが入ります。"
-}
-\end{lstlisting}
-
-\section{テストの実行}
-
-\begin{lstlisting}[language=bash]
-pytest -v
-\end{lstlisting}
-
-\section{Dockerコマンド一覧}
-
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-操作 & コマンド \\
-\hline
-ビルド & docker compose build \\
-起動 & docker compose up \\
-停止 & docker compose down \\
-再起動 & docker compose restart \\
-\hline
-\end{tabular}
-\end{center}
-
-\section{ディレクトリ構成（例）}
-
-\begin{lstlisting}
-pdf2sentence/
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── src/
-│   ├── __init__.py
-│   ├── main.py
-│   └── pdf_loader.py
-└── tests/
-    └── test_pdf_loader.py
-\end{lstlisting}
-
-\section{環境変数（必要に応じて）}
-
-\begin{center}
-\begin{tabular}{|l|l|l|}
-\hline
-変数名 & 用途 & 例 \\
-\hline
-PYTHONUNBUFFERED & ログ出力を即時反映 & 1 \\
-PORT & FastAPIポート番号 & 8000 \\
-\hline
-\end{tabular}
-\end{center}
-
-\section{参考: Dockerfile}
-
-\begin{lstlisting}[language=Dockerfile]
-FROM python:3.11-slim
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY ./src ./src
-
-EXPOSE 8000
-
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
-\end{lstlisting}
-
-\section{CI/CD 構成（GitHub Actions）}
-
-\begin{itemize}
-  \item main ブランチへの push 時に自動テストを実行
-  \item Docker イメージをビルドして Docker Hub へ Push
-\end{itemize}
-
-\section{トラブルシューティング}
-
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-症状 & 対処方法 \\
-\hline
-ModuleNotFoundError: No module named 'src' & docker-compose.yml の working\_dir を /app に設定 \\
-Address already in use & ポート8000が使用中。別ポートに変更 \\
-PDFが読めない & ファイル暗号化や破損の有無を確認 \\
-\hline
-\end{tabular}
-\end{center}
-
-\section{ライセンス}
-
-MIT License \\
-© 2025 Your Name or Organization
-
-\section{著者情報}
-
-\begin{itemize}
-  \item \textbf{Your Name}
-  \item Twitter: \href{https://twitter.com/yourhandle}{@yourhandle}
-  \item GitHub: \href{https://github.com/yourusername}{github.com/yourusername}
-\end{itemize}
-
-\end{document}
