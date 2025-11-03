@@ -38,8 +38,11 @@ git clone https://github.com/minaR0404/pdf2sentence.git
 cd pdf2sentence
 ```
 
-### 2️⃣ 依存パッケージのインストール（ローカル開発用）
+### 2️⃣ 仮想環境構築後に依存パッケージのインストール（ローカル開発用）
 ```bash
+python -m venv .venv
+source .venv/bin/activate   # macOS / Linux
+.venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
 
