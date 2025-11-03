@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 import io
-from src.pdf_loader import extract_texts_from_pdfs
+from src.pdf_loader import extract_texts_from_pdfs, extract_text_from_pdf_bytes
 
 # text = extract_texts_from_pdfs(["tests/assets/n1310000.pdf"])
 # print(text[:50])
@@ -22,7 +22,8 @@ async def extract_text(file: UploadFile = File(...)):
 
     try:
         contents = await file.read()
-        text = extract_texts_from_pdfs(contents)
+        #text = extract_texts_from_pdfs(contents)
+        text = extract_text_from_pdf_bytes(contents)
 
         if not text:
             return JSONResponse(
